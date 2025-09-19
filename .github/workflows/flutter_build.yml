@@ -54,6 +54,11 @@ jobs:
           mkdir -p android/app
           echo "${{ secrets.SOLDEPAY_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release-key.jks
 
+      - name: Clean project
+        run: |
+          flutter clean
+          cd android && ./gradlew clean && cd ..
+
       # ✅ Build APK (signed with keystore)
       - name: Build APK (release)
         run: flutter build apk --release --verbose --warning-mode=all
