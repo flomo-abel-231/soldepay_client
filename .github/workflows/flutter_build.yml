@@ -56,7 +56,7 @@ jobs:
 
       # ✅ Build APK (signed with keystore)
       - name: Build APK (release)
-        run: flutter build apk --release --verbose
+        run: flutter build apk --release --verbose --warning-mode=all
 
       # ✅ Upload APK artifact
       - name: Upload APK
