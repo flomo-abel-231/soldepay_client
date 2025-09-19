@@ -1,0 +1,29 @@
+<svg width="175" height="178" viewBox="0 0 175 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_22_1226" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="54" y="54" width="67" height="70">
+<path d="M87.4996 57.4404L95.7074 63.4279L105.868 63.4092L108.989 73.0779L117.22 79.0342L114.062 88.6904L117.22 98.3467L108.989 104.303L105.868 113.972L95.7074 113.953L87.4996 119.94L79.2918 113.953L69.1309 113.972L66.0105 104.303L57.7793 98.3467L60.9371 88.6904L57.7793 79.0342L66.0105 73.0779L69.1309 63.4092L79.2918 63.4279L87.4996 57.4404Z" stroke="white" stroke-width="6.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M76.5625 88.6904L84.375 96.5029L100 80.8779" stroke="white" stroke-width="6.25" stroke-linecap="round" stroke-linejoin="round"/>
+</mask>
+<g mask="url(#mask0_22_1226)">
+<path d="M50 51.1904H125V126.19H50V51.1904Z" fill="white"/>
+</g>
+<circle cx="29.7618" cy="53.5714" r="2.38095" fill="white"/>
+<circle cx="150" cy="51.1903" r="3.57143" fill="white"/>
+<circle cx="171.429" cy="65.4762" r="3.57143" fill="white"/>
+<circle cx="101.191" cy="145.238" r="2.38095" fill="white"/>
+<circle cx="89.2852" cy="30.9522" r="2.38095" fill="white"/>
+<circle opacity="0.5" cx="75.0001" cy="3.57143" r="3.57143" fill="white"/>
+<circle cx="136.904" cy="158.333" r="3.57143" fill="white"/>
+<circle cx="144.048" cy="125" r="3.57143" fill="white"/>
+<circle opacity="0.5" cx="164.285" cy="115.476" r="3.57143" fill="white"/>
+<circle cx="17.8575" cy="153.571" r="2.38095" fill="white"/>
+<circle opacity="0.5" cx="60.714" cy="157.143" r="3.57143" fill="white"/>
+<circle cx="90.4757" cy="173.809" r="3.57143" fill="white"/>
+<circle cx="3.57143" cy="65.4762" r="3.57143" fill="white"/>
+<circle opacity="0.5" cx="10.714" cy="114.286" r="3.57143" fill="white"/>
+<circle opacity="0.5" cx="129.762" cy="28.5714" r="3.57143" fill="white"/>
+<circle cx="109.524" cy="10.7143" r="3.57143" fill="white"/>
+<circle cx="157.143" cy="28.5714" r="3.57143" fill="white"/>
+<circle cx="152.381" cy="83.3333" r="2.38095" fill="white"/>
+<circle cx="22.6193" cy="21.4286" r="3.57143" fill="white"/>
+<circle cx="53.5714" cy="36.9047" r="3.57143" fill="white"/>
+</svg>

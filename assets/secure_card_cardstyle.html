@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Card Secure Display</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      position: relative;
+    }
+
+    .card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 220px;
+      background-image: url("assets/card-bg.png");
+      background-size: cover;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      color: white;
+    }
+
+    .fields-container {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      width: 170px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      pointer-events: none;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .field-value {
+      height: 16px;
+      overflow: hidden;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    iframe {
+      height: 16px !important;
+      width: 100%;
+      border: none;
+      background: transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="fields-container">
+      <div class="field-group">
+        <label>Card Number:</label>
+        <div class="field-value" id="cardNumberValue"></div>
+      </div>
+
+      <div class="field-group">
+        <label>CVV:</label>
+        <div class="field-value" id="cvv2Value"></div>
+      </div>
+
+      <div class="field-group">
+        <label>PIN:</label>
+        <div class="field-value" id="pinValue"></div>
+      </div>
+
+      <div class="field-group">
+        <label>Expiry:</label>
+        <div class="field-value">MM/YY</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://js.securepro.xyz/sudo-show/1.1/ACiWvWF9tYAez4M498DHs.min.js"></script>
+  <script>
+    const vaultId = "we0dsa28s";
+    const cardToken = "__CARD_TOKEN__"; // Replace with real token
+    const cardId = "__CARD_ID__"; // Replace with real card ID
+
+    const numberSecret = SecureProxy.create(vaultId);
+    const cvv2Secret = SecureProxy.create(vaultId);
+    const pinSecret = SecureProxy.create(vaultId);
+
+    const cardNumberIframe = numberSecret.request({
+      name: 'pan-text',
+      method: 'GET',
+      path: '/cards/' + cardId + '/secure-data/number',
+      headers: {
+        "Authorization": "Bearer " + cardToken
+      },
+      htmlWrapper: 'text',
+      jsonPathSelector: 'data.number',
+      serializers: [
+        numberSecret.SERIALIZERS.replace(
+          '(\\d{4})(\\d{4})(\\d{4})(\\d{4})',
+          '$1 $2 $3 $4 '
+        ),
+      ]
+    });
+    cardNumberIframe.render('#cardNumberValue');
+
+    const cvv2iframe = cvv2Secret.request({
+      name: 'cvv-text',
+      method: 'GET',
+      path: '/cards/' + cardId + '/secure-data/cvv2',
+      headers: {
+        "Authorization": "Bearer " + cardToken
+      },
+      htmlWrapper: 'text',
+      jsonPathSelector: 'data.cvv2',
+      serializers: []
+    });
+    cvv2iframe.render('#cvv2Value');
+
+    const pinIframe = pinSecret.request({
+      name: 'pin-text',
+      method: 'GET',
+      path: '/cards/' + cardId + '/secure-data/defaultPin',
+      headers: {
+        "Authorization": "Bearer " + cardToken
+      },
+      htmlWrapper: 'text',
+      jsonPathSelector: 'data.defaultPin',
+      serializers: []
+    });
+    pinIframe.render('#pinValue');
+  </script>
+
+</body>
+
+</html>

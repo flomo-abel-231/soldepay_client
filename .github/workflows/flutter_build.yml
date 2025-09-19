@@ -1,0 +1,66 @@
+name: Flutter APK Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build_apk:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+
+    env:
+      # ✅ Keystore environment variables from GitHub Secrets
+      KEYSTORE_PASSWORD: ${{ secrets.SOLDEPAY_KEYSTORE_BASE64_PWD }}
+      KEY_ALIAS: SOLDEPAY_KEYSTORE_BASE64_PWD_ALIAS
+      KEY_PASSWORD: ${{ secrets.SOLDEPAY_KEYSTORE_BASE64_PWD}}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ✅ Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter doctor
+        run: flutter doctor -v
+
+      # ✅ Cache dependencies
+      - name: Cache Flutter & Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
+
+      # Install Flutter packages
+      - name: Get dependencies
+        run: flutter pub get
+
+      # ✅ Decode keystore from GitHub Secret
+      - name: Decode release keystore
+        run: |
+          mkdir -p android/app
+          echo "${{ secrets.SOLDEPAY_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release-key.jks
+
+      # ✅ Build APK (signed with keystore)
+      - name: Build APK (release)
+        run: flutter build apk --release --verbose
+
+      # ✅ Upload APK artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: soldepay-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
